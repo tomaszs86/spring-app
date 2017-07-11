@@ -6,8 +6,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class RoleForm {
 
-	@NotNull
-	@NotEmpty	
 	private String name;
 	
 	private Long idRole;
@@ -20,6 +18,8 @@ public class RoleForm {
 		this.idRole = idRole;
 	}
 
+	@NotNull
+	@NotEmpty	
 	public String getName() {
 		return name;
 	}
