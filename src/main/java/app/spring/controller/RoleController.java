@@ -39,6 +39,8 @@ public class RoleController extends BaseController {
 	public String index(Model model) {
 		
 		List<Role> roles = roleRepository.findAll();
+		List<Role> test = roleRepository.getAll();
+		
 		roleViewModel.setRoles(roles);
 		model.addAttribute(VIEW_MODEL_NAME, roleViewModel);
 		return getFullViewName(CONTROLLER_NAME, "index");

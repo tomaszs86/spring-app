@@ -1,11 +1,14 @@
 package app.spring.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import app.spring.model.Role;
 
-@Repository
-public interface RoleRepository extends JpaRepository<Role, Long>{
+@RepositoryRestResource(collectionResourceRel = "roles", path = "roles")
+public interface RoleRepository extends JpaRepository<Role, Long>, RoleRepositoryCustom {
 
+	List<Role> findByName(String name);
 }
