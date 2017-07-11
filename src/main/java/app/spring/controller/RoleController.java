@@ -35,11 +35,10 @@ public class RoleController extends BaseController {
 	@Autowired
 	private RoleRepository roleRepository;
 	
-	@RequestMapping(value="/", method = RequestMethod.GET)
+	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public String index(Model model) {
 		
 		List<Role> roles = roleRepository.findAll();
-		List<Role> test = roleRepository.getAll();
 		
 		roleViewModel.setRoles(roles);
 		model.addAttribute(VIEW_MODEL_NAME, roleViewModel);
