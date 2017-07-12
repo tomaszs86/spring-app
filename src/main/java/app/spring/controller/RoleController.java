@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,7 +35,8 @@ public class RoleController extends BaseController {
 	
 	@Autowired
 	private RoleRepository roleRepository;
-	
+
+	@PreAuthorize("hasRole('USER')")
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public String index(Model model) {
 		
@@ -45,6 +47,7 @@ public class RoleController extends BaseController {
 		return getFullViewName(CONTROLLER_NAME, "index");
 	}
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@RequestMapping(value = "/details", method = RequestMethod.GET)
 	public ModelAndView details() {
 
