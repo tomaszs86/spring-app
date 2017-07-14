@@ -26,6 +26,7 @@ import app.spring.repository.LanguageRepository;
 import app.spring.repository.RoleRepository;
 import app.spring.repository.UserRepository;
 import app.spring.security.SecurityService;
+import app.spring.validator.UserValidator;
 import app.spring.viewmodel.UserViewModel;
 
 @Controller
@@ -48,6 +49,9 @@ public class UserController extends BaseController {
 	private UserViewModel userViewModel;
 	
 	@Autowired
+    private UserValidator userValidator;
+	
+	@Autowired
     private SecurityService securityService;
 	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -60,6 +64,8 @@ public class UserController extends BaseController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ModelAndView submitRegister(@ModelAttribute @Valid UserViewModel userViewModel, BindingResult result, Model model) {
 
+		userValidator.validate(userViewModel.getUserForm(), result);
+		
 		if (result.hasErrors()) {
 			return new ModelAndView(getFullViewName(CONTROLLER_NAME, "register"));
 		}
