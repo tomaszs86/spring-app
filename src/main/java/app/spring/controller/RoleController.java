@@ -36,8 +36,6 @@ public class RoleController extends BaseController {
 	@Autowired
 	private RoleRepository roleRepository;
 
-	// hasRole kilka rol, hasAnyRole...
-	@PreAuthorize("hasRole('USER')")
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public String index(Model model) {
 		
@@ -48,8 +46,7 @@ public class RoleController extends BaseController {
 		model.addAttribute("user", getPrincipal());
 		return getFullViewName(CONTROLLER_NAME, "index");
 	}
-	
-	//@PreAuthorize("hasRole('ADMIN')")
+		
 	@RequestMapping(value = "/details", method = RequestMethod.GET)
 	public ModelAndView details() {
 
@@ -57,6 +54,7 @@ public class RoleController extends BaseController {
 		return new ModelAndView(redirectView);
 	}
 	
+	@PreAuthorize("hasRole('ADMIN_TEST_LIST')")
 	@RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
 	public String details(HttpServletRequest request,@PathVariable("id") Long id, Model model) {
 
@@ -71,6 +69,7 @@ public class RoleController extends BaseController {
 		return getFullViewName(CONTROLLER_NAME, "details");
 	}
 	
+	@PreAuthorize("hasRole('ROLE_TEST')")
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public String create(Model model) {
 
@@ -94,6 +93,7 @@ public class RoleController extends BaseController {
 		return new ModelAndView(redirectView);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_USER')")	
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public String edit(HttpServletRequest req, @PathVariable("id") Long id, Model model) {
 

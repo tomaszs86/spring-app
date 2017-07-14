@@ -1,12 +1,16 @@
 package app.spring.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -35,6 +39,17 @@ public class Right implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	private Set<Role> roles = new HashSet<>(0);
+
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "rights")
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
 	}
 
 }

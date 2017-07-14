@@ -42,8 +42,8 @@ public class UserController extends BaseController {
     @Autowired
 	private LanguageRepository languageRepository;
     
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    //@Autowired
+    //private PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	private UserViewModel userViewModel;
@@ -51,8 +51,8 @@ public class UserController extends BaseController {
 	@Autowired
     private UserValidator userValidator;
 	
-	@Autowired
-    private SecurityService securityService;
+	//@Autowired
+    //private SecurityService securityService;
 	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
     public String register(Model model) {		
@@ -78,7 +78,7 @@ public class UserController extends BaseController {
 		user.setEnabled(true);
 		user.setLoginAttempts(0);
 		user.setName("admin");
-		user.setPassword(passwordEncoder.encode(userViewModel.getUserForm().getPassword()));
+		//user.setPassword(passwordEncoder.encode(userViewModel.getUserForm().getPassword()));
 		user.setSurname("admin");
 		user.setUsername(userViewModel.getUserForm().getUsername());
 		user.setLanguage(language);
@@ -92,7 +92,7 @@ public class UserController extends BaseController {
 		
 		userRepository.save(user);
 
-		securityService.autologin(userViewModel.getUserForm().getUsername(), userViewModel.getUserForm().getPassword());
+		//securityService.autologin(userViewModel.getUserForm().getUsername(), userViewModel.getUserForm().getPassword());
 
 		RedirectView redirectView = this.getRedirectView("role","list");	
 		return new ModelAndView(redirectView);

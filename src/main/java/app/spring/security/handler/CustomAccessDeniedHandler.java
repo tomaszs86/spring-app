@@ -1,4 +1,4 @@
-package app.spring.security;
+package app.spring.security.handler;
 
 import java.io.IOException;
 
