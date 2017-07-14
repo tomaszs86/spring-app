@@ -1,5 +1,7 @@
 package app.spring.controller;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.servlet.view.RedirectView;
 
 public abstract class BaseController {
@@ -16,4 +18,16 @@ public abstract class BaseController {
 		
 		return redirectView;
 	}
+	
+	protected String getPrincipal(){
+        String userName = null;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+ 
+        if (principal instanceof UserDetails) {
+            userName = ((UserDetails)principal).getUsername();
+        } else {
+            userName = principal.toString();
+        }
+        return userName;
+    }
 }

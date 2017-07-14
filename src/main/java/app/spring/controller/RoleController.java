@@ -36,6 +36,7 @@ public class RoleController extends BaseController {
 	@Autowired
 	private RoleRepository roleRepository;
 
+	// hasRole kilka rol, hasAnyRole...
 	@PreAuthorize("hasRole('USER')")
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public String index(Model model) {
@@ -44,10 +45,11 @@ public class RoleController extends BaseController {
 		
 		roleViewModel.setRoles(roles);
 		model.addAttribute(VIEW_MODEL_NAME, roleViewModel);
+		model.addAttribute("user", getPrincipal());
 		return getFullViewName(CONTROLLER_NAME, "index");
 	}
 	
-	@PreAuthorize("hasRole('ADMIN')")
+	//@PreAuthorize("hasRole('ADMIN')")
 	@RequestMapping(value = "/details", method = RequestMethod.GET)
 	public ModelAndView details() {
 

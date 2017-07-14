@@ -28,5 +28,5 @@ public class WebConfig {
 	     messageSource.setBasename("/WEB-INF/messages/messages");
 	     return messageSource;
 	}
-
+	
 }
