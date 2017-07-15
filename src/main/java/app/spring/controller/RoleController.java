@@ -1,13 +1,17 @@
 package app.spring.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +25,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import app.spring.form.RoleForm;
 import app.spring.model.Role;
 import app.spring.repository.RoleRepository;
+import app.spring.security.service.SecurityService;
 import app.spring.viewmodel.RoleViewModel;
 
 @Controller
@@ -35,6 +40,9 @@ public class RoleController extends BaseController {
 	
 	@Autowired
 	private RoleRepository roleRepository;
+	
+	@Qualifier("securityService")
+	private SecurityService securityService;
 
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public String index(Model model) {
@@ -69,7 +77,6 @@ public class RoleController extends BaseController {
 		return getFullViewName(CONTROLLER_NAME, "details");
 	}
 	
-	@PreAuthorize("hasRole('ROLE_TEST')")
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public String create(Model model) {
 
@@ -93,10 +100,20 @@ public class RoleController extends BaseController {
 		return new ModelAndView(redirectView);
 	}
 	
-	@PreAuthorize("hasRole('ROLE_USER')")	
+	//@PreAuthorize("hasRole('ROLE_USER')")
+	@PreAuthorize("@securityService.checkRight(authentication, #id)")
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-	public String edit(HttpServletRequest req, @PathVariable("id") Long id, Model model) {
+	public String edit(HttpServletRequest req, @PathVariable("id") Long id, Model model, Principal principal, Authentication authentication, HttpServletRequest request) {
 
+		/*
+		System.out.println(principal.getName());
+		System.out.println(authentication.getName());
+		Principal requestPrincipal = request.getUserPrincipal();
+		
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		System.out.println("User has authorities: " + userDetails.getAuthorities());
+		*/
+		
 		Role role = roleRepository.findOne(id);
 		
 		if (role == null) {

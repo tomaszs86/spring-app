@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import app.spring.form.RoleForm;
@@ -12,7 +14,9 @@ import app.spring.model.Role;
 @Component
 public class RoleViewModel {
 
-	@Valid
+	public RoleViewModel() {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	}
 	private RoleForm roleForm;
 	
 	private List<Role> roles;

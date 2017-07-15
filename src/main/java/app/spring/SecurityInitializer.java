@@ -1,8 +1,6 @@
-package app.spring.security;
+package app.spring;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
-
-import app.spring.SecurityConfig;
 
 public class SecurityInitializer extends AbstractSecurityWebApplicationInitializer {
 

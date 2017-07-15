@@ -25,8 +25,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
 	      HttpServletResponse response, Authentication authentication) throws IOException {
 	        String targetUrl = determineTargetUrl(authentication);
 	  
-	        if (response.isCommitted()) {
-	            // System.out.println("Can't redirect");
+	        if (response.isCommitted()) {	            
 	            return;
 	        }
 	        

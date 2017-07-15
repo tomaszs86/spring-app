@@ -25,7 +25,7 @@ import app.spring.model.User;
 import app.spring.repository.LanguageRepository;
 import app.spring.repository.RoleRepository;
 import app.spring.repository.UserRepository;
-import app.spring.security.SecurityService;
+import app.spring.security.service.SecurityService;
 import app.spring.validator.UserValidator;
 import app.spring.viewmodel.UserViewModel;
 
