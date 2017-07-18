@@ -9,6 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,7 +22,7 @@ import app.spring.viewmodel.LoginViewModel;
 public class LoginController extends BaseController {
 
 	private static final String CONTROLLER_NAME = "login";
-	private static final String VIEW_MODEL_NAME = "loginForm";
+	private static final String VIEW_NAME = "login";
 
 	@Autowired
 	LoginViewModel loginViewModel;
@@ -32,7 +33,7 @@ public class LoginController extends BaseController {
 		loginViewModel.setLoginForm(new LoginForm());
 
 		model.addAttribute(loginViewModel);
-		return getFullViewName(CONTROLLER_NAME, VIEW_MODEL_NAME);
+		return getFullViewName(CONTROLLER_NAME, VIEW_NAME);
 	}
 
 	@RequestMapping(value = "/loginfailed", method = RequestMethod.GET)
@@ -41,7 +42,7 @@ public class LoginController extends BaseController {
 		model.addAttribute("error", "true");
 		model.addAttribute(loginViewModel);
 
-		return getFullViewName(CONTROLLER_NAME, VIEW_MODEL_NAME);
+		return getFullViewName(CONTROLLER_NAME, VIEW_NAME);
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
@@ -51,9 +52,8 @@ public class LoginController extends BaseController {
         if (auth != null){    
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-        // return "redirect:/login?logout";
 		
-		return getFullViewName(CONTROLLER_NAME, VIEW_MODEL_NAME);
+		return getFullViewName(CONTROLLER_NAME, VIEW_NAME);
 	}
 	
 	@RequestMapping(value = "/403", method = RequestMethod.GET)

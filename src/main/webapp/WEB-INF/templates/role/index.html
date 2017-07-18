@@ -1,0 +1,33 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" th:include="layout/layout :: page">
+   
+   <div th:fragment="content">
+    
+	<h3 th:text="#{app.layout.header.roles}"></h3>
+	
+	<p>
+		<a href="create">
+			<span th:text="#{app.general.create}"></span>
+		</a>
+	</p>
+
+	<table>
+		<thead>
+			<tr>
+				<th th:text="#{app.role.name}"></th>
+				<th>&nbsp;</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="role: ${roleViewModel.roles}">
+				<td th:text="${role.name}"></td>
+				<td>				
+					<a th:href="@{'edit/' + ${role.idRole}}"><span th:text="#{app.general.edit}"></span></a> | 	
+					<a th:href="@{'details/' + ${role.idRole}}"><span th:text="#{app.general.details}"></span></a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	</div>
+
+</html>

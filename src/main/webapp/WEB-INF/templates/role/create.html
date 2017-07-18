@@ -1,0 +1,39 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" th:include="layout/layout :: page">
+   <div th:fragment="content">
+
+	<div class="content layout-top-margin">
+	<h3 th:text="#{app.general.create}"></h3>
+
+	<form action="#" th:action="@{/role/create}" th:object="${roleViewModel}" method="post" class="form-horizontal my-form-margin-top">
+
+		<div class="form-group">
+			
+			<label class="col-sm-1 my-label-form control-label" th:text="#{app.role.name}"></label>
+			
+			<div class="col-sm-3">								
+            	<input type="text" th:field="*{roleForm.name}" />	            			
+			</div>
+			
+			<div class="form-group">
+			<div class="col-sm-offset-1 my-form-offset col-sm-2">
+				
+				<p><input type="submit" value="Submit" /></p>
+				
+				
+			</div>
+		</div>
+			
+		</div>
+
+		
+		
+	</form>
+	</div>
+	
+	
+    
+	
+	
+
+	</div>
+</html>

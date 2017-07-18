@@ -15,9 +15,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-
-import app.spring.security.service.impl.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
@@ -41,16 +40,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 	    authProvider.setPasswordEncoder(passwordEncoder());	 	  
 	 	    return authProvider;
 	 	}
-	 	
-	 	 //@Autowired
-	     //private CustomAuthenticationProvider authProvider;
-	 	
+
 	 	@Autowired
 	 	public AccessDeniedHandler accessDeniedHandler;
 	 	
 	 	@Autowired
 	 	public AuthenticationSuccessHandler successHandler;
-	
+	 	
+	 	@Autowired
+	 	public AuthenticationFailureHandler failureHandler;
+
+	 	 //@Autowired
+	     //private CustomAuthenticationProvider authProvider;
+	 	
 	    @Override
 		protected void configure(HttpSecurity http) throws Exception {
 			
@@ -63,7 +65,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	            .loginPage("/login")	            
 				.loginProcessingUrl("/login")
 				.successHandler(successHandler)
-				.failureUrl("/loginfailed")
+				//.failureUrl("/loginfailed")
+				.failureHandler(failureHandler)
 				.usernameParameter("username").passwordParameter("password")
 				.permitAll()
             .and()

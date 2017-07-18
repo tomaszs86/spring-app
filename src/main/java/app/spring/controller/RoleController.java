@@ -62,7 +62,7 @@ public class RoleController extends BaseController {
 		return new ModelAndView(redirectView);
 	}
 	
-	@PreAuthorize("hasRole('ADMIN_TEST_LIST')")
+	//@PreAuthorize("hasRole('ADMIN_TEST_LIST')")
 	@RequestMapping(value = "/details/{id}", method = RequestMethod.GET)
 	public String details(HttpServletRequest request,@PathVariable("id") Long id, Model model) {
 
@@ -86,7 +86,7 @@ public class RoleController extends BaseController {
 	}
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public ModelAndView submitCreate(@ModelAttribute @Valid RoleViewModel roleViewModel, BindingResult result, Model model) {
+	public ModelAndView submitCreate(@Valid @ModelAttribute(value="roleViewModel") RoleViewModel roleViewModel, BindingResult result, Model model) {
 
 		if (result.hasErrors()) {
 			return new ModelAndView(getFullViewName(CONTROLLER_NAME, "create"));
@@ -96,12 +96,12 @@ public class RoleController extends BaseController {
 		role.setName(roleViewModel.getRoleForm().getName());		
 		roleRepository.save(role);
 
-		RedirectView redirectView = this.getRedirectView(CONTROLLER_NAME,"");	
+		RedirectView redirectView = this.getRedirectView(CONTROLLER_NAME,"list");	
 		return new ModelAndView(redirectView);
 	}
 	
 	//@PreAuthorize("hasRole('ROLE_USER')")
-	@PreAuthorize("@securityService.checkRight(authentication, #id)")
+	//@PreAuthorize("@securityService.checkRight(authentication, #id)")
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public String edit(HttpServletRequest req, @PathVariable("id") Long id, Model model, Principal principal, Authentication authentication, HttpServletRequest request) {
 

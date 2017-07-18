@@ -17,6 +17,8 @@ public class RoleViewModel {
 	public RoleViewModel() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	}
+	
+	@Valid
 	private RoleForm roleForm;
 	
 	private List<Role> roles;

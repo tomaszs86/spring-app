@@ -1,0 +1,22 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" th:include="layout/layout :: page">
+   <div th:fragment="content">
+
+	<h3 th:text="#{app.layout.header.roles}"></h3>
+	
+	<div class="form-horizontal my-form-margin-top">
+
+		<div class="form-group">
+			<label class="col-sm-1 my-label-form control-label" th:text="#{app.role.name}"></label>
+			<div class="col-sm-10 control-label text-align-left"><span th:text="${roleViewModel.role.name}"></span></div>
+		</div>
+		
+		<div class="form-group">
+			<div class="col-sm-offset-1 my-form-offset col-sm-2">			
+				<a th:href="@{'/role/list'}"><span th:text="#{app.general.back}"></span></a>			
+			</div>
+		</div>
+	
+	</div>
+
+	</div>
+</html>
